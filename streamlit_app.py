@@ -1,6 +1,9 @@
 import streamlit as st
 import pandas as pd
-from oauth2client.service_account import ServiceAccountCredentials
+from google.oauth2.service_account import Credentials
+
+credentials = Credentials.from_service_account_file('C:/Users/janha/OneDrive/Desktop/AI Agent Project/google-key2.json')
+
 import gspread 
 
 st.title("AI Agent - Data upload and Google Sheets Integration")
@@ -21,11 +24,11 @@ st.write(df)
 import streamlit as st
 import pandas as pd
 import gspread
-from google.oauth2.service_account import Credentials
+
 
 # Setup Google Sheets API and authentication
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive.file", "https://www.googleapis.com/auth/drive"]
-creds = ServiceAccountCredentials.from_json_keyfile_name('ai_agentproject.json', scope)
+creds = ServiceAccountCredentials.from_json_keyfile_name('./google-key2.json', scope)
 client = gspread.authorize(creds)
 
 # File upload and Google Sheets integration

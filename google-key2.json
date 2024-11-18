@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "deep-beanbag-442016-v5",
+  "private_key_id": "6ac8915dc739d3f8811fbbce92776fdeae5cf42e",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDHxSZXr6jFN+aV\nZZ0NqVpTS2omnDaLl0/7OCfUCHdYX4vXqZ8STLXI5GzlxvPhJLvWNO/TXzJsJYwI\nmFb+cTUIjET++Z2WsPsEfZYIcZd6jz3s+hajrcqwCWMUodd4CevQsYz9jkm+MKXR\n27ZFN4F5Lx/y5We/DclaMNPj+c0chOBig6O0xgmwy6l7zc4YEWuoK8Vrma6kt5wu\nUXonppEvI73icdiTOC9wJuLJPir2AR9c+HrUSC+imH4xDN974gwOXpDPFisPLAZY\n87RR1HhKlW/kN2Np+VG/8MP/lPu1lo0qRTIN6qRZev/A8JUIazjgkSuvmRD7cQpF\nX3pI+6qVAgMBAAECggEAGRHG9Qa97Dn5UtLp+aFAt5E65KuCi36qnSvNO7ua69kv\nCG+93vhcxmAmwP3NnyRn+hgHPK8GpIcLDWJouwzj4IsRzC7xCsxyQ9GqzAEinFEb\nhACtFKSmT0nDnamNtlUFuy583gOcLM+YD5Tonm5lGMXELEwuT83gGym40t7cpvEB\nEPNlMobYfsGrJ+asxyHf7VZxTWSnp6sicQACl40eBgqtu1L+9635HcAkJp0AoICd\nATdj0ofQ3YFkmac7wWsyPGiHK9eywTfwYwMSYYKXYZIOTkrZHXlwTxf4HmaYKwPy\njmSn9bH6RisPk4z/Su+eXq94wuLEi6KjEf1jNsSU5QKBgQDtIXA/v3aNfzF/2wIF\nEszzur3c3bim+izoCLFYu819+wdt+2FbGyVUm2DFsRy9UAWI3CnB3PqkfRgMpQo8\n6L4DJGooBNazrVUmTM56stGXLVBFt02kaZ151RY+ckkjUcSVrAMDSVmm8+JtMVU6\nKNEkMAD+Jaee6WcKDvSXZhWnKwKBgQDXqqUHned1IUFetpnGHxKB7vQT3hhSFMO5\npvx6CyUccYCppwYLBk5IauxXQf3nnrOwbU9EG1lZYotdqmVDpdbcUiz9pjTtQL1v\nk4Nx8XJ5OkcGng4xlKw4b7yx/W9/0HCf8VQ3DraSVfBhNz1jEoStNAdG9WX44UR8\nzi3hkFMVPwKBgQDLUk2Ny1wabQIDT8TGlt026lqbQ11thrr0ZWey3qyOpaw0KEPM\nu1Th26w5NeifhjqIo8YGHLSoTz5MsUI7AZDS3ulK0QNK4odNJLQyTpsZVdgrPsWL\nAKfu67974cBGUXkOoIOg0MbXOOxfldou2QqiTaq8P4se3Z/k5vffzL8qKwKBgEQw\n7rFz2iWM+FBsSD7+wClZVs+ZX/NEIYboJ9inAXr24InECAMgYUxAkq4cbZ347jQQ\nvAl65EuA/zQElrRHEaLkUNl63i1OVReceuliQKHYLXEINNC0g6fsnKtiyQiO7a2E\n7u3htxSaG8GBZ+WVi2IAm3RyT2XcRH1568PwkHSdAoGBALTaEFVHLqRhfN7uBqrY\nxoYBf2d5y+JXvfYJcyWLlsRF4tQ6aFquj/KZ5+Ox5A9Oz6aEslKzVw5qNFZhqxJr\na47SYssE20x6vvBl4GhArCgAhQDdaQFlxUs/RUmBxBfuTHnzJrJT95OwgY1VPVbD\nGwHDV1Z1X5KllduoI4GBQOpH\n-----END PRIVATE KEY-----\n",
+  "client_email": "ai-agent-service-account@deep-beanbag-442016-v5.iam.gserviceaccount.com",
+  "client_id": "109213202409710444380",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/ai-agent-service-account%40deep-beanbag-442016-v5.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
