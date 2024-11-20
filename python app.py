@@ -1,110 +1,29 @@
-from flask import Flask
-
-# Create a single Flask app instance
-app = Flask(__name__)
-
-# Define routes
-@app.route('/')
-def home():
-    return "Welcome to the Home Page!"
-
-@app.route('/about')
-def about():
-    return "This is the About Page!"
-
-@app.route('/contact')
-def contact():
-    return "Feel free to Contact Us!"
-
-# Ensure the app runs only when executed directly
-if __name__ == '__main__':
-    app.run(debug=True)
-
-
-from flask import Flask, request, render_template
-import os
 import pandas as pd
-
-app = Flask(__name__)
-
-# Configure upload folder
-UPLOAD_FOLDER = './data/uploaded_files/'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
-# Home route
-@app.route('/')
-def home():
-    return "Welcome to the AI Agent Project!"
-
-# File upload route
-@app.route('/upload', methods=['GET', 'POST'])
-def upload_file():
-    if request.method == 'POST':
-        if 'file' not in request.files:
-            return "No file part"
-        file = request.files['file']
-        if file.filename == '':
-            return "No selected file"
-        if file:
-            filepath = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
-            file.save(filepath)
-            data = pd.read_csv(filepath)
-            return render_template('upload.html', tables=[data.to_html(classes='data')], titles=data.columns.values)
-    return render_template('upload.html')
-
-if __name__ == '__main__':
-    app.run(debug=True)
-from flask import Flask, request
+import requests
 import os
-import pandas as pd
+from dotenv import load_dotenv
 
-# Initialize the Flask app
-app = Flask(__name__)
+# Load environment variables from the .env file
+load_dotenv()
 
-# Folder to store uploaded files
-UPLOAD_FOLDER = 'data/uploaded_files'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+# Get the API key from the environment variables
+API_KEY = os.getenv("API_KEY")
 
-# Home route
-@app.route('/')
-def home():
-    return "Welcome to the AI Agent Project!"
+# Function to read customers data from CSV file
+def read_customers_csv(file_path):
+    try:
+        data = pd.read_csv(file_path)
+        return data
+    except FileNotFoundError:
+        print("Error: The 'customers.csv' file was not found.")
+        return None
 
-# Upload route
-@app.route('/upload', methods=['GET', 'POST'])
-def upload():
-    # This will print in the terminal when the /upload page is accessed
-    print("Upload page accessed")
+# Function to process data
+def process_data(data):
+    # Extract necessary columns from the data
+    columns_needed = ["Customer Id", "Email", "Phone Number", "Company"]
+    customers_data = data[columns_needed].to_dict(orient="records")
+    return customers_data
 
-    if request.method == 'POST':
-        file = request.files['file']
-        if file:
-            # Get filename and save the file
-            filename = file.filename
-            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            file.save(file_path)
 
-            # Read CSV file using pandas
-            df = pd.read_csv(file_path)
 
-            # Convert the DataFrame to an HTML table
-            table = df.to_html(classes='table table-bordered')
-
-            return f'''
-                <h3>File '{filename}' uploaded successfully!</h3>
-                <h4>CSV Data:</h4>
-                {table}
-            '''
-    
-    # If method is GET or no file is uploaded, show the upload form
-    return '''
-    <form method="POST" enctype="multipart/form-data">
-        <input type="file" name="file">
-        <input type="submit" value="Upload">
-    </form>
-    '''
-
-if __name__ == "__main__":
-    app.run(debug=True, use_reloader=False)
-
-    

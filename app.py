@@ -1,54 +1,57 @@
-from flask import Flask, request
-import os
+import streamlit as st
 import pandas as pd
+import requests
 
-# Initialize the Flask app
-app = Flask(__name__)
+# Set up the app title and introductory description
+st.title("AI Agent Project")
+st.write("Welcome to the Streamlit version of the AI Agent Project!")
 
-# Folder to store uploaded files
-UPLOAD_FOLDER = 'data/uploaded_files'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+# Attempt to load the Google API key from secrets.toml
+try:
+    google_api_key = st.secrets["general"]["google_api_key"]
+    st.success("Google API key loaded successfully!")
+    other_setting = "your_other_value"
+except KeyError as e:
+    st.error(f"Error loading Google API key: {e}")
+    st.write("Please make sure you have added the 'general' section to your secrets.toml file.")
+    st.write("For more information on secrets management, see: [Secrets Management](https://docs.streamlit.io/develop/concepts/connections/secrets-management)")
 
-# Home route
-@app.route('/')
-def home():
-    return "Welcome to the AI Agent Project!"
+# File upload functionality for CSV and Excel files
+uploaded_file = st.file_uploader("Upload your file (CSV or Excel)", type=["csv", "xlsx"])
 
-# Upload route
-@app.route('/upload', methods=['GET', 'POST'])
-def upload():
-    # This will print in the terminal when the /upload page is accessed
-    print("Upload page accessed")
+if uploaded_file:
+    try:
+        # Check the file type and load it accordingly
+        if uploaded_file.name.endswith(".csv"):
+            data = pd.read_csv(uploaded_file)
+        elif uploaded_file.name.endswith(".xlsx"):
+            data = pd.read_excel(uploaded_file)
+        
+        # Display the first few rows of the uploaded file
+        st.write("File uploaded successfully! Here's a preview:")
+        st.dataframe(data.head())
+    except Exception as e:
+        st.error(f"Error reading the file: {e}")
 
-    if request.method == 'POST':
-        file = request.files['file']
-        if file:
-            # Get filename and save the file
-            filename = file.filename
-            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            file.save(file_path)
+# Fetch data function (example)
+def fetch_data(query):
+    try:
+        url = f"https://api.example.com/data?query={query}&key={google_api_key}"
+        response = requests.get(url)
+        
+        if response.status_code == 200:
+            return response.json()  # Indented block here
+        else:
+            st.error(f"Failed to fetch data. HTTP Status Code: {response.status_code}")
+            return None
+    except Exception as e:
+        st.error(f"An error occurred while fetching data: {e}")
+        return None
 
-            # Read CSV file using pandas
-            df = pd.read_csv(file_path)
-
-            # Convert the DataFrame to an HTML table
-            table = df.to_html(classes='table table-bordered')
-
-            return f'''
-                <h3>File '{filename}' uploaded successfully!</h3>
-                <h4>CSV Data:</h4>
-                {table}
-            '''
-    
-    # If method is GET or no file is uploaded, show the upload form
-    return '''
-    <form method="POST" enctype="multipart/form-data">
-        <input type="file" name="file">
-        <input type="submit" value="Upload">
-    </form>
-    '''
-
-if __name__ == '__main__':
-    # Ensure the app runs only when executed directly
-    app.run(debug=True)
-
+# Example for using fetch_data (you can modify or remove this part)
+if st.button("Test Fetch Data"):
+    query = st.text_input("Enter a search query", "example query")
+    if query:
+        result = fetch_data(query)
+        if result:
+            st.write("Fetched data:", result)
