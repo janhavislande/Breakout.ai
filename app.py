@@ -10,7 +10,6 @@ st.write("Welcome to the Streamlit version of the AI Agent Project!")
 try:
     google_api_key = st.secrets["general"]["google_api_key"]
     st.success("Google API key loaded successfully!")
-    other_setting = "your_other_value"
 except KeyError as e:
     st.error(f"Error loading Google API key: {e}")
     st.write("Please make sure you have added the 'general' section to your secrets.toml file.")
@@ -36,22 +35,22 @@ if uploaded_file:
 # Fetch data function (example)
 def fetch_data(query):
     try:
-        url = f"https://api.example.com/data?query={query}&key={google_api_key}"
+        # Construct the URL for the Google Places API request
+        url = f"https://maps.googleapis.com/maps/api/place/textsearch/json?query={query}&key={google_api_key}"
+        
+        # Make the API request
         response = requests.get(url)
         
         if response.status_code == 200:
-            return response.json()  # Indented block here
+            return response.json()  # Parse and return the JSON response
+        elif response.status_code == 403:
+            st.error("Access denied: Invalid API key or insufficient permissions.")
+        elif response.status_code == 429:
+            st.error("Rate limit exceeded. Please try again later.")
         else:
-            st.error(f"Failed to fetch data. HTTP Status Code: {response.status_code}")
+            st.error(f"Unexpected error: {response.status_code}")
+            st.write(response.text)
             return None
     except Exception as e:
         st.error(f"An error occurred while fetching data: {e}")
         return None
-
-# Example for using fetch_data (you can modify or remove this part)
-if st.button("Test Fetch Data"):
-    query = st.text_input("Enter a search query", "example query")
-    if query:
-        result = fetch_data(query)
-        if result:
-            st.write("Fetched data:", result)
